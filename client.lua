@@ -128,7 +128,6 @@ Citizen.CreateThread(
                 end
 
                 if IsControlJustPressed(0, GetHashKey('INPUT_AIM')) then
-                    FISHING_SET_TRANSITION_FLAG(64)
                     set('transitionFlag', 64)
                 end
 
