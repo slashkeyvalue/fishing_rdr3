@@ -175,17 +175,17 @@ Citizen.CreateThread(
 
         local ped = PlayerPedId()
 
-        Citizen.InvokeNative(0xB282DC6EBD803C75, ped, GetHashKey("WEAPON_FISHINGROD"), 500, true, 0);
-        Citizen.InvokeNative(0x9B0C7FA063E67629, ped, "P_FINISHDCRAWDLEGENDARY01X", 0, 1)
+        Citizen.InvokeNative(0xB282DC6EBD803C75, ped, GetHashKey('WEAPON_FISHINGROD'), 500, true, 0);
+        Citizen.InvokeNative(0x9B0C7FA063E67629, ped, 'P_FINISHDCRAWDLEGENDARY01X', 0, 1)
 
         while true do
             Citizen.Wait(0)
     
             for i, struct_property in ipairs(struct) do        
-
                 DrawScreenText(struct_property.name, 0.65, 0.05 + (i * 0.025), 0.4, 0.4, true, 247, 88, 20, 255, false);
+                
                 if struct_property.value then
-                    DrawScreenText(struct_property.value .. "", 0.75, 0.05 + (i * 0.025), 0.4, 0.4, true, 247, 88, 20, 255, false);
+                    DrawScreenText(struct_property.value .. '', 0.75, 0.05 + (i * 0.025), 0.4, 0.4, true, 247, 88, 20, 255, false);
                 end
             end
         end

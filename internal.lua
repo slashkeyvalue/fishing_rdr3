@@ -1,7 +1,7 @@
 function dataview_type_from_property_type(view, propertyType)
-    if     (propertyType == 'i32') then
+    if     propertyType == 'i32' then
         return view.GetInt32
-    elseif (propertyType == 'f32') then
+    elseif propertyType == 'f32' then
         return view.GetFloat32
     end
 end
@@ -145,15 +145,15 @@ function fetch()
 
         local byte = (i - 1) * 8
 
-        if (struct_property.new_value) then
+        if struct_property.new_value then
             needs_update = true
         end
 
         local value
 
-        if (struct_property.type == 'i32') then
+        if     struct_property.type == 'i32' then
             value = view:GetInt32(byte)
-        elseif (struct_property.type == 'f32') then
+        elseif struct_property.type == 'f32' then
             value = view:GetFloat32(byte)
         end
 
@@ -194,7 +194,7 @@ end
 
 function find(property)
     for i, struct_property in ipairs(struct) do
-        if (struct_property.name == property) then
+        if struct_property.name == property then
             return struct_property
         end 
     end
@@ -204,7 +204,7 @@ function get(property)
     local struct_property = find(property)
 
     if struct_property then
-        if (struct_property.new_value) then
+        if struct_property.new_value then
             return struct_property.new_value
         end
 

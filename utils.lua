@@ -1,5 +1,5 @@
 function DrawScreenText(str, x, y, w, h, enableShadow, col1, col2, col3, a, centre)
-    local str = CreateVarString(10, "LITERAL_STRING", str)
+    local str = CreateVarString(10, 'LITERAL_STRING', str)
     SetTextScale(w, h)
     SetTextColor(math.floor(col1), math.floor(col2), math.floor(col3), math.floor(a))
     SetTextCentre(centre)
