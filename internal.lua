@@ -19,7 +19,6 @@ struct = {
     --    name      = 'placeholder',
     --    type      = 'i32',
     --    value     = nil,
-    --    new_value = nil,
     --},   
     { -- 0
         name  = 'minigameState',
@@ -164,12 +163,6 @@ function update()
 
         local value = struct_property.value
 
-        if struct_property.new_value then
-            value = struct_property.new_value
-            
-            struct_property.new_value = nil
-        end
-
         local int32 = value
 
         if struct_property.type == 'f32' then
@@ -194,10 +187,6 @@ function get(property)
     local struct_property = find(property)
 
     if struct_property then
-        if struct_property.new_value then
-            return struct_property.new_value
-        end
-
         return struct_property.value
     end
 end
@@ -206,7 +195,7 @@ function set(property, new_value)
     local struct_property = find(property)
 
     if struct_property then
-        struct_property.new_value = new_value
+        struct_property.value = new_value
 
         update()
     end
