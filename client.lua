@@ -79,25 +79,10 @@ Citizen.CreateThread(
                     set('transitionFlag', 11)
                 end
 
-                local horizontalMove = 0
+                local isRightClickPressed = IsControlJustPressed(0, GetHashKey('INPUT_AIM'));
 
-                if GetControlNormal(0, GetHashKey('INPUT_RADIAL_MENU_NAV_LR')) > 0 then -- Right
-                    horizontalMove = horizontalMove - (0.05 * GetControlNormal(0, 0x390948DC))
-                end
-                
-                if GetControlNormal(0, GetHashKey('INPUT_RADIAL_MENU_NAV_LR')) < 0 then -- Left
-                    horizontalMove = horizontalMove + (0.05 * -GetControlNormal(0, 0x390948DC))
-                end
-
-                if horizontalMove < 0 then
-                    horizontalMove = 0
-                end
-                
-                if horizontalMove > 1 then
-                    horizontalMove = 1
-                end
-
-                set('rodPositionLR', horizontalMove)
+                set('rodPositionLR', isRightClickPressed and 1.0 - GetControlNormal(0, GetHashKey('INPUT_CURSOR_X')) or 0.0)
+                set('rodPositionUD', isRightClickPressed and 1.0 - GetControlNormal(0, GetHashKey('INPUT_CURSOR_Y')) or 0.0)
 
                 local unk4 = get('unk4') 
 
@@ -112,15 +97,7 @@ Citizen.CreateThread(
                         set('unk4', 0.4)
                     end
                 end
-
-                if IsControlJustPressed(0, GetHashKey('INPUT_ATTACK')) then
-                    set('rodPositionUD', 0.6)
-                end
-
-                if IsControlJustReleased(0, GetHashKey('INPUT_ATTACK')) then
-                    set('rodPositionUD', 0.0)
-                end
-                
+                       
             elseif minigameState == 12 then 
 
                 if IsControlJustPressed(0, GetHashKey('INPUT_ATTACK')) then

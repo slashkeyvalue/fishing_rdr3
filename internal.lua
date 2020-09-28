@@ -139,15 +139,9 @@ function fetch()
     local view = DataView.ArrayBuffer(256)
     Citizen.InvokeNative(0xF3735ACD11ACD500, PlayerPedId(), view:Buffer(), Citizen.ReturnResultAnyway());
 
-    local needs_update = false
-
     for i, struct_property in ipairs(struct) do        
 
         local byte = (i - 1) * 8
-
-        if struct_property.new_value then
-            needs_update = true
-        end
 
         local value
 
@@ -158,10 +152,6 @@ function fetch()
         end
 
         struct[i].value = value
-    end
-
-    if needs_update then
-        update()
     end
 end
 
@@ -217,5 +207,7 @@ function set(property, new_value)
 
     if struct_property then
         struct_property.new_value = new_value
+
+        update()
     end
 end
