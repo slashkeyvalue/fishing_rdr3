@@ -134,8 +134,9 @@ struct = {
     },
 }
 
+local view = DataView.ArrayBuffer(256)
+
 function fetch()
-    local view = DataView.ArrayBuffer(256)
     Citizen.InvokeNative(0xF3735ACD11ACD500, PlayerPedId(), view:Buffer(), Citizen.ReturnResultAnyway());
 
     for i, struct_property in ipairs(struct) do        
@@ -154,22 +155,24 @@ function fetch()
     end
 end
 
-function update()
-    local view = DataView.ArrayBuffer(256)
-
+function update(updated_property_name)
     for i, struct_property in ipairs(struct) do
+        if struct_property == updated_property_name then
 
-        local byte = (i - 1) * 8
+            local byte = (i - 1) * 8
 
-        local value = struct_property.value
+            local value = struct_property.value
 
-        local int32 = value
+            local int32 = value
 
-        if struct_property.type == 'f32' then
-            int32 = float32_to_int32(value)
+            if struct_property.type == 'f32' then
+                int32 = float32_to_int32(value)
+            end
+
+            view:SetInt32(byte, int32)
+
+            break
         end
-
-        view:SetInt32(byte, int32)
     end
 
     Citizen.invokeNative("0xF3735ACD11ACD501", PlayerPedId(), view:Buffer());
@@ -197,6 +200,6 @@ function set(property, new_value)
     if struct_property then
         struct_property.value = new_value
 
-        update()
+        update(struct_property.name)
     end
 end
