@@ -7,11 +7,11 @@ function dataview_type_from_property_type(view, propertyType)
 end
 
 function float32_to_int32(num)
-    local view = DataView.ArrayBuffer(16)
+    local _view = DataView.ArrayBuffer(16)
     
-    view:SetFloat32(0, num, false);
+    _view:SetFloat32(0, num, false);
 
-    return view:GetInt32(0);
+    return _view:GetInt32(0);
 end
 
 struct = {
@@ -155,9 +155,15 @@ function fetch()
     end
 end
 
+function flush()
+    for i, struct_property in ipairs(struct) do        
+        struct[i].value = nil
+    end
+end
+
 function update(updated_property_name)
     for i, struct_property in ipairs(struct) do
-        if struct_property == updated_property_name then
+        if struct_property.name == updated_property_name then
 
             local byte = (i - 1) * 8
 
@@ -175,7 +181,7 @@ function update(updated_property_name)
         end
     end
 
-    Citizen.invokeNative("0xF3735ACD11ACD501", PlayerPedId(), view:Buffer());
+    Citizen.InvokeNative("0xF3735ACD11ACD501", PlayerPedId(), view:Buffer());
 end
 
 function find(property)

@@ -9,3 +9,9 @@ function DrawScreenText(str, x, y, w, h, enableShadow, col1, col2, col3, a, cent
     Citizen.InvokeNative(0xADA9255D, 4)
     DisplayText(str, x, y)
 end
+
+function DrawLine(vecA, vecB, r, g, b, a)
+    Citizen.InvokeNative(GetHashKey('DRAW_LINE') & 0xFFFFFFFF, vecA, vecB, r, g, b, a)
+end
+
+function math.lerp(a,b,t) return a + (b - a) * t end
